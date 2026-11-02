@@ -1,113 +1,92 @@
+# Recipe Book
 
-# 🍽️ Recipe Book
+A responsive recipe browsing application built using React.js and Vite. The application allows users to explore recipes, filter them by category, manage their favourite recipes, and view detailed cooking instructions.
 
-A responsive Recipe Book web application built using React.js and Vite. Explore delicious recipes, filter vegetarian and non-vegetarian dishes, mark favourites, and view detailed cooking instructions.
+## Features
 
-## ✨ Features
+- **Recipe Listing:** Displays recipes in a responsive card layout.
+- **Category Filtering:** Filter recipes by All, Veg, and Non-veg categories.
+- **Favourite Management:** Add or remove recipes from the favourites list using the heart icon.
+- **Live Favourites Count:** Automatically updates the total number of favourite recipes.
+- **Show Favourites Only:** View only the recipes marked as favourites.
+- **Recipe Details:** View ingredients and preparation steps by selecting a recipe.
+- **Recipe Selection:** Select and deselect recipe cards to show or hide their details.
+- **Responsive Design:** Optimised for desktop, tablet, and mobile screens.
 
-- 🏠 Attractive hero banner
-- 🍃 Filter recipes by All, Veg, and Non-Veg
-- 🍛 Six recipe cards with images and details
-- ❤️ Add or remove recipes from favourites
-- 📖 View ingredients and step-by-step cooking instructions
-- 📱 Responsive design for desktop, tablet, and mobile
-- 📂 Recipe data maintained in a separate JSON file
-
-## 🛠️ Tech Stack
+## Technologies Used
 
 - React.js
 - Vite
 - JavaScript (ES6+)
 - HTML5
 - CSS3
-- JSON
 - Lucide React
 
-## 📁 Project Structure
+## Project Structure
 
-```text
-recipe-book/
-├── public/
-│   └── images/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   │   ├── Hero.jsx
-│   │   ├── FilterButtons.jsx
-│   │   ├── RecipeCard.jsx
-│   │   ├── RecipeList.jsx
-│   │   └── RecipeDetails.jsx
-│   ├── data/
-│   │   └── recipes.json
-│   ├── App.jsx
-│   ├── App.css
-│   ├── index.css
-│   └── main.jsx
-├── index.html
-├── package.json
-└── README.md
-```
+    recipe-book/
+    ├── public/
+    │   └── images/
+    ├── src/
+    │   ├── assets/
+    │   ├── components/
+    │   │   ├── Hero.jsx
+    │   │   ├── FilterButton.jsx
+    │   │   ├── RecipeCard.jsx
+    │   │   ├── RecipeList.jsx
+    │   │   └── RecipeDetails.jsx
+    │   ├── data/
+    │   │   └── recipes.json
+    │   ├── App.jsx
+    │   ├── App.css
+    │   ├── index.css
+    │   └── main.jsx
+    ├── index.html
+    ├── package.json
+    └── README.md
 
-## 🚀 Getting Started
+## Installation and Setup
 
-### Prerequisites
+### 1. Clone the Repository
 
-- Node.js
-- npm
+    git clone https://github.com/PadmashreeArunprasath/Recipe-Book-reactUI.git
 
-### Installation
+### 2. Navigate to the Project Directory
 
-1. Clone the repository:
+    cd Recipe-Book-reactUI
 
-```bash
-git clone <your-repository-url>
-```
+### 3. Install Dependencies
 
-2. Navigate to the project folder:
+    npm install
 
-```bash
-cd recipe-book
-```
+### 4. Start the Development Server
 
-3. Install dependencies:
+    npm run dev
 
-```bash
-npm install
-```
+Open the local URL displayed in the terminal to view the application.
 
-4. Start the development server:
+## Application Usage
 
-```bash
-npm run dev
-```
+1. Browse the available recipes on the home page.
+2. Use the category buttons to filter vegetarian and non-vegetarian recipes.
+3. Click the heart icon to add or remove a recipe from favourites.
+4. Use the Show Favourites Only button to display favourite recipes.
+5. Select a recipe card to view its ingredients and preparation instructions.
+6. Select the same card again to deselect it.
 
-5. Open the local URL displayed in the terminal.
+## Future Enhancements
 
-## 📱 Responsive Design
+- Search recipes by name.
+- Add new recipes dynamically.
+- Store favourite recipes using local storage.
+- Add cooking instructions with preparation images.
 
-| Device | Layout |
-|---|---|
-| Desktop | 3-column recipe grid |
-| Tablet | 2-column recipe grid |
-| Mobile | 1-column recipe grid |
-
-Implemented using CSS Grid, Flexbox, and media queries.
-
-## 📚 Concepts Practised
-
-- React Functional Components
-- Component Reusability
-- Props and State Management
-- React `useState` Hook
-- Array `map()` and `filter()` methods
-- Event Handling
-- JSON Data Management
-- Responsive CSS Design
-
-## 👩‍💻 Author
+## Author
 
 **Padma Shree A**
 
-## 📄 License
+GitHub: [PadmashreeArunprasath](https://github.com/PadmashreeArunprasath)
 
-This project is developed for learning and educational purposes.
+---
+
+Developed as a React.js practice project to demonstrate component-based development, state management, event handling, and responsive UI design.
