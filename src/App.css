@@ -463,7 +463,8 @@ button {
   }
 
   .favorites-filter-btn {
-    padding: 7px 12px;
+    margin-right:0px;
+    padding: 7px 10px;
     font-size: 11px;
   }
 }
