@@ -1,7 +1,7 @@
 
 function RecipeDetails({ recipe }) {
   if (!recipe) {
-    return <p>Select a recipe to view its details.</p>;
+    return <p className="no-recipes">Select a recipe to view its details.</p>;
   }
 
   return (

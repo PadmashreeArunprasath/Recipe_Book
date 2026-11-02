@@ -7,18 +7,21 @@ import RecipeDetails from "./components/RecipeDetails";
 import "./App.css";
 import recipes from "./data/recipes.json";
 
-
 function App() {
   const [category, setCategory] = useState("All");
-  const [selectedRecipe, setSelectedRecipe] = useState(recipes[0]);
-  const [favorites, setFavorites] = useState([1, 4]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [favorites, setFavorites] = useState([]);
+  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
-  const filteredRecipes =
-    category === "All"
-      ? recipes
-      : recipes.filter(
-          (recipe) => recipe.category === category
-        );
+  const filteredRecipes = recipes.filter((recipe) => {
+    const matchesCategory =
+      category === "All" || recipe.category === category;
+
+    const matchesFavorites =
+      !showFavoritesOnly || favorites.includes(recipe.id);
+
+    return matchesCategory && matchesFavorites;
+  });
 
   function toggleFavorite(id) {
     setFavorites((previous) =>
@@ -38,8 +41,27 @@ function App() {
           setCategory={setCategory}
         />
 
+        <div className="favorites-section">
+          <p>Favorites: {favorites.length}</p>
+
+          <button
+            className="favorites-filter-btn"
+            onClick={() =>
+              setShowFavoritesOnly(!showFavoritesOnly)
+            }
+          >
+            {showFavoritesOnly
+              ? "Show All Recipes"
+              : "Show Favorites Only"}
+          </button>
+        </div>
+
         <h2 className="section-title">
-          {category === "All" ? "All recipes" : `${category} recipes`}
+          {showFavoritesOnly
+            ? "Favorite recipes"
+            : category === "All"
+              ? "All recipes"
+              : `${category} recipes`}
         </h2>
 
         <RecipeList
@@ -57,4 +79,3 @@ function App() {
 }
 
 export default App;
-
