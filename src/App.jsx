@@ -33,13 +33,18 @@ function App() {
 
   return (
     <div className="app">
-      <Hero />
+      <div className="hero-section">
+        <Hero />
+
+        <div className="filter-wrapper">
+          <FilterButtons
+            category={category}
+            setCategory={setCategory}
+          />
+        </div>
+      </div>
 
       <main className="container">
-        <FilterButtons
-          category={category}
-          setCategory={setCategory}
-        />
 
         <div className="favorites-section">
           <p>Favorites: {favorites.length}</p>
