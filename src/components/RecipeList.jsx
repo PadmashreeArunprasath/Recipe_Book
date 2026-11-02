@@ -1,3 +1,4 @@
+
 import RecipeCard from "./RecipeCard";
 
 function RecipeList({
@@ -8,18 +9,26 @@ function RecipeList({
   selectedRecipe
 }) {
   return (
-    <div className="recipe-grid">
-      {recipes.map((recipe) => (
-        <RecipeCard
-          key={recipe.id}
-          recipe={recipe}
-          favorite={favorites.includes(recipe.id)}
-          onFavorite={onFavorite}
-          onSelect={onSelect}
-          selected={selectedRecipe?.id === recipe.id}
-        />
-      ))}
-    </div>
+    <>
+      {recipes.length === 0 ? (
+        <p className="no-recipes">
+          No favourite recipes found.
+        </p>
+      ) : (
+        <div className="recipe-grid">
+          {recipes.map((recipe) => (
+            <RecipeCard
+              key={recipe.id}
+              recipe={recipe}
+              favorite={favorites.includes(recipe.id)}
+              onFavorite={onFavorite}
+              onSelect={onSelect}
+              selected={selectedRecipe?.id === recipe.id}
+            />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 

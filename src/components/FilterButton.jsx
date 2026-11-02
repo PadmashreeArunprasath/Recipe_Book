@@ -7,11 +7,10 @@ function FilterButtons({ category, setCategory }) {
       {categories.map((item) => (
         <button
           key={item}
-          className={`filter-btn ${
-            category.toLowerCase() === item.toLowerCase()
+          className={`filter-btn ${category.toLowerCase() === item.toLowerCase()
               ? "active"
               : ""
-          }`}
+            }`}
           onClick={() =>
             setCategory(
               item === "Non-veg" ? "Non-veg" : item
