@@ -1,4 +1,7 @@
+
 import { Heart } from "lucide-react";
+import isVeg from "../utils/isVeg";
+
 function RecipeCard({
   recipe,
   favorite,
@@ -6,15 +9,22 @@ function RecipeCard({
   onSelect,
   selected
 }) {
+  const vegetarian = isVeg(recipe);
+
+  const totalTime =
+    recipe.prepTimeMinutes + recipe.cookTimeMinutes;
+
   return (
     <article
       className={`recipe-card ${selected ? "selected" : ""}`}
-      onClick={() =>
-        onSelect(selected ? null : recipe)
-      }
+      onClick={() => onSelect(selected ? null : recipe)}
     >
       <div className="recipe-image">
-        <img className="food-image" src={recipe.image} alt={recipe.name} />
+        <img
+          className="food-image"
+          src={recipe.image}
+          alt={recipe.name}
+        />
 
         <button
           className="heart-btn"
@@ -36,17 +46,11 @@ function RecipeCard({
         <h3>{recipe.name}</h3>
 
         <div className="recipe-meta">
-          <span
-            className={
-              recipe.category === "Veg"
-                ? "tag veg"
-                : "tag non-veg"
-            }
-          >
-            {recipe.category}
+          <span className={vegetarian ? "tag veg" : "tag non-veg"}>
+            {vegetarian ? "Veg" : "Non-veg"}
           </span>
 
-          <span>◷ {recipe.time} min</span>
+          <span>◷ {totalTime} min</span>
           <span>{recipe.difficulty}</span>
         </div>
       </div>

@@ -1,27 +1,50 @@
+function FilterButtons({
+  category,
+  setCategory,
+  mealType,
+  setMealType
+}) {
+  const meals = ["All Meals", "Breakfast", "Lunch", "Dinner"];
 
-function FilterButtons({ category, setCategory }) {
-  const categories = ["All", "Veg", "Non-veg"];
+  const vegMode = category === "Veg";
 
   return (
     <div className="filter-buttons">
-      {categories.map((item) => (
-        <button
-          key={item}
-          className={`filter-btn ${category.toLowerCase() === item.toLowerCase()
+
+      <div className="meal-filters">
+        {meals.map((item) => (
+          <button
+            key={item}
+            className={`filter-btn ${(item === "All Meals" && mealType === "All") ||
+              mealType === item
               ? "active"
               : ""
-            }`}
-          onClick={() =>
-            setCategory(
-              item === "Non-veg" ? "Non-veg" : item
-            )
-          }
-        >
-          {item === "Veg" && <span className="veg-circle"></span>}
-          {item === "Non-veg" && <span className="nonveg-circle"></span>}
-          {item}
-        </button>
-      ))}
+              }`}
+            onClick={() =>
+              setMealType(item === "All Meals" ? "All" : item)
+            }
+          >
+            {item}
+          </button>
+        ))}
+      </div>
+
+
+      <button
+        className={`veg-mode ${vegMode ? "enabled" : ""}`}
+        onClick={() => setCategory(vegMode ? "All" : "Veg")}
+        aria-label="Toggle Veg Mode"
+        aria-pressed={vegMode}
+      >
+        <span className="toggle-track">
+          <span className="toggle-track">
+            <span className="toggle-label">VEG</span>
+            <span className="toggle-circle"></span>
+          </span>
+        </span>
+      </button>
+
+
     </div>
   );
 }

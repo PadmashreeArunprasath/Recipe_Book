@@ -1,26 +1,63 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Hero from "./components/Hero";
 import FilterButtons from "./components/FilterButton";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
+import { getRecipes } from "./api";
+import isVeg from "./utils/isVeg";
 import "./App.css";
-import recipes from "./data/recipes.json";
+
 
 function App() {
   const [category, setCategory] = useState("All");
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
+  const [mealType, setMealType] = useState("All");
 
+  // API states
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // Fetch recipes when App loads
+  useEffect(() => {
+    async function fetchRecipes() {
+      try {
+        setLoading(true);
+        setError(null);
+
+        const data = await getRecipes();
+        setRecipes(data);
+      } catch (error) {
+        setError(error.message);
+        setRecipes([]);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchRecipes();
+  }, []);
+
+  // Filter recipes
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesCategory =
-      category === "All" || recipe.category === category;
+      category === "All" ||
+      (category === "Veg" && isVeg(recipe)) ||
+      (category === "Non-veg" && !isVeg(recipe));
 
     const matchesFavorites =
       !showFavoritesOnly || favorites.includes(recipe.id);
 
-    return matchesCategory && matchesFavorites;
+    const matchesMealType =
+      mealType === "All" ||
+      recipe.mealType.some(
+        (meal) => meal.toLowerCase() === mealType.toLowerCase()
+      );
+
+    return matchesCategory && matchesFavorites && matchesMealType;
   });
 
   function toggleFavorite(id) {
@@ -40,12 +77,13 @@ function App() {
           <FilterButtons
             category={category}
             setCategory={setCategory}
+            mealType={mealType}
+            setMealType={setMealType}
           />
         </div>
       </div>
 
       <main className="container">
-
         <div className="favorites-section">
           <p>Favorites: {favorites.length}</p>
 
@@ -69,16 +107,48 @@ function App() {
               : `${category} recipes`}
         </h2>
 
-        <RecipeList
-          recipes={filteredRecipes}
-          favorites={favorites}
-          onFavorite={toggleFavorite}
-          onSelect={setSelectedRecipe}
-          selectedRecipe={selectedRecipe}
-        />
+        {loading ? (
+          <p className="loading-message">Loading recipes...</p>
+        ) : error ? (
+          <p className="error-message">
+            Unable to load recipes: {error}
+          </p>
+        ) : filteredRecipes.length === 0 ? (
+          <p className="empty-message">
+            No recipes found. Try another filter!
+          </p>
+        ) : (
+          <RecipeList
+            recipes={filteredRecipes}
+            favorites={favorites}
+            onFavorite={toggleFavorite}
+            onSelect={setSelectedRecipe}
+            selectedRecipe={selectedRecipe}
+          />
+        )}
 
-        <RecipeDetails recipe={selectedRecipe} />
+       
       </main>
+      {selectedRecipe && (
+  <div
+    className="recipe-modal-overlay"
+    onClick={() => setSelectedRecipe(null)}
+  >
+    <div
+      className="recipe-modal"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <button
+        className="modal-close"
+        onClick={() => setSelectedRecipe(null)}
+      >
+        &times;
+      </button>
+
+      <RecipeDetails recipe={selectedRecipe} />
+    </div>
+  </div>
+)}
     </div>
   );
 }
