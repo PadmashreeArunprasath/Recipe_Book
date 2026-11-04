@@ -1,4 +1,4 @@
-
+import { useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import isVeg from "../utils/isVeg";
 
@@ -10,14 +10,14 @@ function RecipeCard({
   selected
 }) {
   const vegetarian = isVeg(recipe);
-
+  const navigate = useNavigate();
   const totalTime =
     recipe.prepTimeMinutes + recipe.cookTimeMinutes;
 
   return (
     <article
       className={`recipe-card ${selected ? "selected" : ""}`}
-      onClick={() => onSelect(selected ? null : recipe)}
+      onClick={() => navigate(`/recipe/${recipe.id}`)}
     >
       <div className="recipe-image">
         <img

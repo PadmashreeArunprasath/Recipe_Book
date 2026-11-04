@@ -1,27 +1,22 @@
-
 import { useState, useEffect } from "react";
-import Hero from "./components/Hero";
-import FilterButtons from "./components/FilterButton";
-import RecipeList from "./components/RecipeList";
-import RecipeDetails from "./components/RecipeDetails";
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+import Home from "./pages/Home";
+import RecipeDetail from "./pages/RecipeDetail";
+import Favourites from "./pages/Favourites";
+import NotFound from "./pages/NotFound";
 import { getRecipes } from "./api";
-import isVeg from "./utils/isVeg";
 import "./App.css";
-
 
 function App() {
   const [category, setCategory] = useState("All");
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [favorites, setFavorites] = useState([]);
-  const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
   const [mealType, setMealType] = useState("All");
 
-  // API states
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch recipes when App loads
   useEffect(() => {
     async function fetchRecipes() {
       try {
@@ -41,25 +36,6 @@ function App() {
     fetchRecipes();
   }, []);
 
-  // Filter recipes
-  const filteredRecipes = recipes.filter((recipe) => {
-    const matchesCategory =
-      category === "All" ||
-      (category === "Veg" && isVeg(recipe)) ||
-      (category === "Non-veg" && !isVeg(recipe));
-
-    const matchesFavorites =
-      !showFavoritesOnly || favorites.includes(recipe.id);
-
-    const matchesMealType =
-      mealType === "All" ||
-      recipe.mealType.some(
-        (meal) => meal.toLowerCase() === mealType.toLowerCase()
-      );
-
-    return matchesCategory && matchesFavorites && matchesMealType;
-  });
-
   function toggleFavorite(id) {
     setFavorites((previous) =>
       previous.includes(id)
@@ -70,85 +46,47 @@ function App() {
 
   return (
     <div className="app">
-      <div className="hero-section">
-        <Hero />
+      <Header favoritesCount={favorites.length} />
 
-        <div className="filter-wrapper">
-          <FilterButtons
-            category={category}
-            setCategory={setCategory}
-            mealType={mealType}
-            setMealType={setMealType}
-          />
-        </div>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Home
+              category={category}
+              setCategory={setCategory}
+              mealType={mealType}
+              setMealType={setMealType}
+              recipes={recipes}
+              favorites={favorites}
+              onFavorite={toggleFavorite}
+              loading={loading}
+              error={error}
+            />
+          }
+        />
 
-      <main className="container">
-        <div className="favorites-section">
-          <p>Favorites: {favorites.length}</p>
+        <Route
+          path="/recipe/:id"
+          element={<RecipeDetail />}
+        />
 
-          <button
-            className="favorites-filter-btn"
-            onClick={() =>
-              setShowFavoritesOnly(!showFavoritesOnly)
-            }
-          >
-            {showFavoritesOnly
-              ? "Show All Recipes"
-              : "Show Favorites Only"}
-          </button>
-        </div>
+        <Route
+          path="/favourites"
+          element={
+            <Favourites
+              recipes={recipes}
+              favorites={favorites}
+              onFavorite={toggleFavorite}
+            />
+          }
+        />
 
-        <h2 className="section-title">
-          {showFavoritesOnly
-            ? "Favorite recipes"
-            : category === "All"
-              ? "All recipes"
-              : `${category} recipes`}
-        </h2>
-
-        {loading ? (
-          <p className="loading-message">Loading recipes...</p>
-        ) : error ? (
-          <p className="error-message">
-            Unable to load recipes: {error}
-          </p>
-        ) : filteredRecipes.length === 0 ? (
-          <p className="empty-message">
-            No recipes found. Try another filter!
-          </p>
-        ) : (
-          <RecipeList
-            recipes={filteredRecipes}
-            favorites={favorites}
-            onFavorite={toggleFavorite}
-            onSelect={setSelectedRecipe}
-            selectedRecipe={selectedRecipe}
-          />
-        )}
-
-       
-      </main>
-      {selectedRecipe && (
-  <div
-    className="recipe-modal-overlay"
-    onClick={() => setSelectedRecipe(null)}
-  >
-    <div
-      className="recipe-modal"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        className="modal-close"
-        onClick={() => setSelectedRecipe(null)}
-      >
-        &times;
-      </button>
-
-      <RecipeDetails recipe={selectedRecipe} />
-    </div>
-  </div>
-)}
+        <Route
+          path="*"
+          element={<NotFound />}
+        />
+      </Routes>
     </div>
   );
 }
