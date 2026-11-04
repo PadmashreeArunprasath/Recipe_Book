@@ -6,13 +6,13 @@ function RecipeDetails({ recipe }) {
   return (
     <section className="recipe-details">
 
-      <div className="detail-image">
+  
         <img
           className="food-image"
           src={recipe.image}
           alt={recipe.name}
         />
-      </div>
+    
 
       <div className="detail-content">
         <h2>{recipe.name}</h2>
