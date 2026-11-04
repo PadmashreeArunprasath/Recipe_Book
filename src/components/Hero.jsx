@@ -2,7 +2,7 @@
 function Hero() {
   return (
     <section className="hero">
-      <h1>Recipe Book</h1>
+      <h1>Discover Recipes</h1>
       <p>
         Simple home-style recipes, from quick breakfasts to
         Sunday biryani.
