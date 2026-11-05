@@ -1,28 +1,39 @@
 import { NavLink } from "react-router-dom";
+import { Sun, Moon } from "lucide-react";
+import { useFavourites } from "../context/FavouritesContext";
+import { useTheme } from "../context/ThemeContext";
+import "../App.css";
 import "./Header.css";
+function Header() {
+  const { count } = useFavourites();
+  const { theme, toggleTheme } = useTheme();
 
-function Header({ favoritesCount }) {
   return (
     <header className="site-header">
       <NavLink to="/" className="logo">
-        Recipe Book
+        RECIPE BOOK
       </NavLink>
 
       <nav>
-        <NavLink
-          to="/"
-          className={({ isActive }) => isActive ? "active-link" : ""}
-          end
-        >
+        <NavLink to="/" end>
           Home
         </NavLink>
 
-        <NavLink
-          to="/favourites"
-          className={({ isActive }) => isActive ? "active-link" : ""}
-        >
-          Favourites ({favoritesCount})
+        <NavLink to="/favourites">
+          Favourites ({count})
         </NavLink>
+
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label="Toggle theme"
+        >
+          {theme === "light" ? (
+            <Moon size={20} />
+          ) : (
+            <Sun size={20} />
+          )}
+        </button>
       </nav>
     </header>
   );

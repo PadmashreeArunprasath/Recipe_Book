@@ -95,6 +95,19 @@
   color: white;
 }
 
+.app.dark .meal-filters .filter-btn {
+  background: #26332b;
+  border-color: #26332b;
+  color: #ffffff;
+}
+
+.app.dark .meal-filters .filter-btn.active {
+  background: #dba612;
+  border-color: #dba612;
+  color: #172d1e;
+}
+
+
 /* TABLET */
 @media (max-width: 900px) {
   .filter-buttons {

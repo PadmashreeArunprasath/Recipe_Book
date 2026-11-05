@@ -1,39 +1,34 @@
-import { useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useFavourites } from "../context/FavouritesContext";
 import isVeg from "../utils/isVeg";
 import "./RecipeCard.css";
-
-function RecipeCard({
-  recipe,
-  favorite,
-  onFavorite,
-  onSelect,
-  selected
-}) {
-  const vegetarian = isVeg(recipe);
+function RecipeCard({ recipe }) {
   const navigate = useNavigate();
-  const totalTime =
-    recipe.prepTimeMinutes + recipe.cookTimeMinutes;
+
+  const { isFavourite, toggleFavourite } = useFavourites();
+
+  const favorite = isFavourite(recipe.id);
+  const vegetarian = isVeg(recipe);
+  const totalTime = recipe.prepTimeMinutes + recipe.cookTimeMinutes;
 
   return (
     <article
-      className={`recipe-card ${selected ? "selected" : ""}`}
+      className="recipe-card"
       onClick={() => navigate(`/recipe/${recipe.id}`)}
     >
       <div className="recipe-image">
-        <div className="image">
         <img
           className="food-image"
           src={recipe.image}
           alt={recipe.name}
         />
-        </div>
 
         <button
           className="heart-btn"
           onClick={(event) => {
             event.stopPropagation();
-            onFavorite(recipe.id);
+            toggleFavourite(recipe.id);
           }}
         >
           <Heart

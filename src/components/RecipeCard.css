@@ -43,8 +43,11 @@
   height: 35px;
   border: none;
   border-radius: 50%;
-  background: white;
   font-size: 17px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+
 }
 
 .recipe-info {
@@ -84,6 +87,19 @@
   color: #c6382b;
 }
 
+.app.dark .recipe-card {
+  background: #28362d;
+  border-color: #64766a;
+}
+.app.dark .recipe-image {
+  background: #0d1410;
+}
+.app.dark .recipe-meta {
+  color: white;
+}
+.app.dark .heart-btn {
+  color: #0d1410;
+}
 /* MOBILE */
 @media (max-width: 600px) {
   .recipe-image {

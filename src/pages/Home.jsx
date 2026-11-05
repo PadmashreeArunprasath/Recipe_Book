@@ -6,14 +6,12 @@ import isVeg from "../utils/isVeg";
 
 function Home({
     category,
-    setCategory,
-    mealType,
-    setMealType,
-    recipes,
-    favorites,
-    onFavorite,
-    loading,
-    error
+  setCategory,
+  mealType,
+  setMealType,
+  recipes,
+  loading,
+  error
 }) {
     const filteredRecipes = recipes.filter((recipe) => {
         const matchesCategory =
@@ -63,11 +61,7 @@ function Home({
                         No recipes found. Try another filter!
                     </p>
                 ) : (
-                    <RecipeList
-                        recipes={filteredRecipes}
-                        favorites={favorites}
-                        onFavorite={onFavorite}
-                    />
+                    <RecipeList recipes={filteredRecipes} />
                 )}
             </main>
         </div>
