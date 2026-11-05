@@ -106,6 +106,43 @@
   scroll-margin-top: 30px;
 }
 
+/* DARK MODE - RECIPE DETAILS */
+
+.app.dark .recipe-details {
+  background-color: #202923;
+  color: #f5f5f5;
+}
+
+.app.dark .detail-content {
+  background-color: #202923;
+  color: #f5f5f5;
+}
+
+.app.dark .detail-content h2,
+.app.dark .detail-content h4 {
+  color: #ffffff;
+}
+
+.app.dark .detail-meta span {
+  background-color: #35463a;
+  color: #ffffff;
+}
+
+.app.dark .detail-columns ul,
+.app.dark .detail-columns ol {
+  color: #e0e6e1;
+}
+
+.app.dark .detail-columns li {
+  color: #e0e6e1;
+}
+
+.app.dark .detail-columns h4 {
+  border-color: #68796d;
+}
+.app.dark .heart-btn{
+  color: #202923;
+}
 /* ── TABLET ── */
 @media (max-width: 900px) {
   .detail-content {

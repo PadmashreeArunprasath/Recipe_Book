@@ -21,7 +21,7 @@
 .site-header nav {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 25px;
 }
 
 .site-header a {
@@ -45,4 +45,17 @@
   z-index: 999;
   background: #285d3c;
   padding: 0;
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding-left:0;
+  padding: 8px;
+  border-radius: 50%;
+  color: white;
 }

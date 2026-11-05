@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-
+import { useTheme } from "./context/ThemeContext";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import RecipeDetail from "./pages/RecipeDetail";
@@ -17,6 +17,8 @@ function App() {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const { theme } = useTheme();
 
   useEffect(() => {
     async function fetchRecipes() {
@@ -37,7 +39,7 @@ function App() {
   }, []);
 
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <Header />
 
       <Routes>

@@ -35,6 +35,14 @@
   color: white;
 }
 
+.app.dark .favorites-filter-btn {
+  background: #2d5d3b;
+  color: white;
+}
+.app.dark .sticky-filters {
+  background: #4e6656;
+}
+
 /* MOBILE */
 @media (max-width: 600px) {
   .container {

@@ -42,6 +42,10 @@
   transform: translateY(50%);
 }
 
+.app.dark .hero{
+  background-color: #4e6656;
+}
+
 /* TABLET */
 @media (max-width: 600px) {
   .hero {
