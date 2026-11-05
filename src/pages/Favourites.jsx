@@ -1,9 +1,12 @@
 import RecipeList from "../components/RecipeList";
-import "./Favourites.css";
+import { useFavourites } from "../context/FavouritesContext";
+import "../App.css";
 
-function Favourites({ recipes, favorites, onFavorite }) {
+function Favourites({ recipes }) {
+  const { favourites } = useFavourites();
+
   const favoriteRecipes = recipes.filter((recipe) =>
-    favorites.includes(recipe.id)
+    favourites.includes(recipe.id)
   );
 
   return (
@@ -15,11 +18,7 @@ function Favourites({ recipes, favorites, onFavorite }) {
           You haven't added any favourite recipes yet!
         </p>
       ) : (
-        <RecipeList
-          recipes={favoriteRecipes}
-          favorites={favorites}
-          onFavorite={onFavorite}
-        />
+        <RecipeList recipes={favoriteRecipes} />
       )}
     </main>
   );

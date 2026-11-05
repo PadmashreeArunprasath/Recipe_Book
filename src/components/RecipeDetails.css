@@ -1,5 +1,18 @@
 /* ── Inline recipe details section (RecipeDetail page) ── */
+.detail-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
 
+.detail-title .heart-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
 .recipe-details {
   display: flex;
   flex-direction: column;

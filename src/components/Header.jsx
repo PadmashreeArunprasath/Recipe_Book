@@ -1,17 +1,22 @@
 import { NavLink } from "react-router-dom";
+import { useFavourites } from "../context/FavouritesContext";
+import "../App.css";
 import "./Header.css";
+function Header() {
+  const { count } = useFavourites();
 
-function Header({ favoritesCount }) {
   return (
     <header className="site-header">
       <NavLink to="/" className="logo">
-        Recipe Book
+        RECIPE BOOK
       </NavLink>
 
       <nav>
         <NavLink
           to="/"
-          className={({ isActive }) => isActive ? "active-link" : ""}
+          className={({ isActive }) =>
+            isActive ? "active-link" : ""
+          }
           end
         >
           Home
@@ -19,9 +24,11 @@ function Header({ favoritesCount }) {
 
         <NavLink
           to="/favourites"
-          className={({ isActive }) => isActive ? "active-link" : ""}
+          className={({ isActive }) =>
+            isActive ? "active-link" : ""
+          }
         >
-          Favourites ({favoritesCount})
+          Favourites ({count})
         </NavLink>
       </nav>
     </header>

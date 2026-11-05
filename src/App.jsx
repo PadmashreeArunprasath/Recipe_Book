@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import RecipeDetail from "./pages/RecipeDetail";
 import Favourites from "./pages/Favourites";
 import NotFound from "./pages/NotFound";
+
 import { getRecipes } from "./api";
 import "./App.css";
 
 function App() {
   const [category, setCategory] = useState("All");
-  const [favorites, setFavorites] = useState([]);
   const [mealType, setMealType] = useState("All");
 
   const [recipes, setRecipes] = useState([]);
@@ -22,7 +23,6 @@ function App() {
       try {
         setLoading(true);
         setError(null);
-
         const data = await getRecipes();
         setRecipes(data);
       } catch (error) {
@@ -36,17 +36,9 @@ function App() {
     fetchRecipes();
   }, []);
 
-  function toggleFavorite(id) {
-    setFavorites((previous) =>
-      previous.includes(id)
-        ? previous.filter((item) => item !== id)
-        : [...previous, id]
-    );
-  }
-
   return (
     <div className="app">
-      <Header favoritesCount={favorites.length} />
+      <Header />
 
       <Routes>
         <Route
@@ -58,34 +50,20 @@ function App() {
               mealType={mealType}
               setMealType={setMealType}
               recipes={recipes}
-              favorites={favorites}
-              onFavorite={toggleFavorite}
               loading={loading}
               error={error}
             />
           }
         />
 
-        <Route
-          path="/recipe/:id"
-          element={<RecipeDetail />}
-        />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
 
         <Route
           path="/favourites"
-          element={
-            <Favourites
-              recipes={recipes}
-              favorites={favorites}
-              onFavorite={toggleFavorite}
-            />
-          }
+          element={<Favourites recipes={recipes} />}
         />
 
-        <Route
-          path="*"
-          element={<NotFound />}
-        />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
