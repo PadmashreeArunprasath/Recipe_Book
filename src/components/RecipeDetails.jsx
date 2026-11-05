@@ -1,4 +1,6 @@
 
+import "./RecipeDetails.css";
+
 function RecipeDetails({ recipe }) {
   const totalTime =
     recipe.prepTimeMinutes + recipe.cookTimeMinutes;

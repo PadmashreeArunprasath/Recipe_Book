@@ -1,0 +1,231 @@
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+  padding-left: 2px;
+}
+
+/* Meal filter buttons group */
+.meal-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.filter-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid #dce8d9;
+  color: black;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.08);
+  transition: 0.2s;
+}
+
+.filter-btn.active {
+  background: #dba612;
+  border-color: #dba612;
+  color: #172d1e;
+}
+
+/* Veg toggle */
+.veg-mode {
+  margin-right: auto;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.toggle-track {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 76px;
+  height: 34px;
+  padding: 5px;
+  border-radius: 30px;
+  background: #bdbdbd;
+  transition: background 0.3s ease;
+}
+
+.toggle-circle {
+  position: absolute;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: white;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.toggle-label {
+  position: absolute;
+  right: 9px;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgb(31, 29, 29);
+  letter-spacing: 0.5px;
+}
+
+.veg-mode.enabled .toggle-track {
+  background: #218038;
+}
+
+.veg-mode.enabled .toggle-circle {
+  left: 0;
+  transform: translateX(38px);
+}
+
+.veg-mode.enabled .toggle-label {
+  left: 9px;
+  right: auto;
+  color: white;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .filter-buttons {
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  .meal-filters {
+    gap: 8px;
+  }
+
+  .toggle-track {
+    width: 70px;
+    height: 32px;
+  }
+
+  .toggle-circle {
+    width: 26px;
+    height: 26px;
+  }
+
+  .veg-mode.enabled .toggle-circle {
+    left: 5px;
+    transform: translateX(30px);
+  }
+
+  .toggle-label {
+    right: 5px;
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .filter-buttons {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 6px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  .meal-filters {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    gap: 7px;
+  }
+
+  .veg-mode {
+    flex-shrink: 0;
+  }
+
+  .toggle-track {
+    width: 64px;
+    height: 32px;
+  }
+
+  .toggle-circle {
+    width: 26px;
+    height: 26px;
+  }
+
+  .veg-mode.enabled .toggle-circle {
+    transform: translateX(28px);
+  }
+
+  .toggle-label {
+    font-size: 9px;
+  }
+
+  .veg-mode.enabled .toggle-label {
+    left: 5px;
+  }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 360px) {
+  .filter-buttons {
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .meal-filters {
+    flex: 1 1 0;
+    min-width: 0;
+    gap: 5px;
+  }
+
+  .filter-btn {
+    padding: 4px 5px;
+    font-size: 9px;
+    gap: 4px;
+  }
+
+  .veg-mode {
+    flex: 0 0 50px;
+    width: 50px;
+    min-width: 50px;
+    margin-right: 40px;
+  }
+
+  .toggle-track {
+    width: 50px;
+    height: 25px;
+  }
+
+  .toggle-circle {
+    width: 20px;
+    height: 20px;
+  }
+
+  .toggle-label {
+    top: 52%;
+    right: 9px;
+    transform: translateY(-50%);
+    font-size: 8px;
+  }
+
+  .veg-mode.enabled .toggle-circle {
+    transform: translateX(22px);
+  }
+
+  .veg-mode.enabled .toggle-label {
+    left: 5px;
+    right: auto;
+  }
+}

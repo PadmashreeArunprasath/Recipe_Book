@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Heart } from "lucide-react";
 import isVeg from "../utils/isVeg";
+import "./RecipeCard.css";
 
 function RecipeCard({
   recipe,
@@ -20,11 +21,13 @@ function RecipeCard({
       onClick={() => navigate(`/recipe/${recipe.id}`)}
     >
       <div className="recipe-image">
+        <div className="image">
         <img
           className="food-image"
           src={recipe.image}
           alt={recipe.name}
         />
+        </div>
 
         <button
           className="heart-btn"

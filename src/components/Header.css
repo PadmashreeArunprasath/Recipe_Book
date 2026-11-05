@@ -1,0 +1,48 @@
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 3%;
+  background: #285d3c;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.site-header .logo {
+  font-family: Georgia, serif;
+  font-size: 20px;
+  font-weight: 600;
+  text-decoration: none;
+  color: white;
+}
+
+.site-header nav {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.site-header a {
+  text-decoration: none;
+  color: white;
+  transition: color 0.2s ease;
+}
+
+.site-header .active-link {
+  color: #ffb52e;
+  font-weight: bold;
+}
+
+.site-header nav a:hover {
+  color: #ffb52e;
+}
+
+.sticky-filters {
+  position: sticky;
+  top: 60px;
+  z-index: 999;
+  background: #285d3c;
+  padding: 0;
+}

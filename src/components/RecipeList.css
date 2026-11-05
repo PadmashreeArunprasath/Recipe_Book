@@ -1,0 +1,35 @@
+.recipe-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.no-recipes,
+.loading-message,
+.error-message,
+.empty-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #777;
+  font-size: 16px;
+  grid-column: 1 / -1;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  .recipe-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .recipe-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .no-recipes {
+    font-size: 10px;
+  }
+}
