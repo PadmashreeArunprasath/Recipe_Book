@@ -1,5 +1,5 @@
 import RecipeList from "../components/RecipeList";
-import "../App.css";
+import "./Favourites.css";
 
 function Favourites({ recipes, favorites, onFavorite }) {
   const favoriteRecipes = recipes.filter((recipe) =>

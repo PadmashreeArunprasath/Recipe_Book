@@ -1,3 +1,5 @@
+import "./FilterButton.css";
+
 function FilterButtons({
   category,
   setCategory,

@@ -1,5 +1,6 @@
 
 import RecipeCard from "./RecipeCard";
+import "./RecipeList.css";
 
 function RecipeList({
   recipes,

@@ -1,7 +1,7 @@
 import Hero from "../components/Hero";
 import FilterButtons from "../components/FilterButton";
 import RecipeList from "../components/RecipeList";
-import "../App.css";
+import "./Home.css";
 import isVeg from "../utils/isVeg";
 
 function Home({
