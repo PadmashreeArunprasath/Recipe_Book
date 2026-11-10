@@ -51,25 +51,27 @@ function FilterButtons({
         className="shrink-0"
       >
         <span
-          className={`relative flex h-[34px] w-[76px] items-center rounded-full p-[5px] transition-colors duration-300 max-[900px]:h-8 max-[900px]:w-[70px] max-[600px]:w-16 ${
+          className={`relative flex h-[34px] w-[70px] items-center rounded-full p-[5px] transition-colors duration-300 max-[900px]:h-8 max-[900px]:w-[70px] max-[600px]:w-16 ${
             vegMode ? "bg-[#218038]" : "bg-[#bdbdbd]"
           }`}
         >
           <span
             className={`absolute z-10 h-7 w-7 rounded-full bg-white transition-transform duration-300 max-[900px]:h-[26px] max-[900px]:w-[26px] max-[600px]:h-[26px] max-[600px]:w-[26px] ${
-              vegMode ? "translate-x-[38px] max-[900px]:translate-x-[30px] max-[600px]:translate-x-7" : "translate-x-0"
+              vegMode
+  ? "translate-x-[32px] max-[900px]:translate-x-[26px] max-[600px]:translate-x-[20px]"
+  : "translate-x-0"
             }`}
           />
 
           <span
-            className={`absolute text-[10px] font-bold tracking-wider transition-colors max-[600px]:text-[9px] ${
-              vegMode
-                ? "left-[9px] text-white max-[600px]:left-[5px]"
-                : "right-[9px] text-[#1f1d1d] max-[900px]:right-[5px]"
-            }`}
-          >
-            VEG
-          </span>
+  className={`absolute text-[10px] font-bold tracking-wider transition-colors max-[600px]:text-[9px] ${
+    vegMode
+      ? "left-[6px] text-white"
+      : "right-[6px] text-[#1f1d1d]"
+  }`}
+>
+  VEG
+</span>
         </span>
       </button>
     </div>

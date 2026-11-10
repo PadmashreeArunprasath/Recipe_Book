@@ -17,30 +17,12 @@ function App() {
   const [category, setCategory] = useState("All");
   const [mealType, setMealType] = useState("All");
 
-  // Load custom recipes from localStorage
-  const [customRecipes, setCustomRecipes] = useState(() => {
-    try {
-      return JSON.parse(localStorage.getItem("customRecipes")) || [];
-    } catch {
-      return [];
-    }
-  });
-
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const { theme } = useTheme();
 
-  // Save custom recipe details whenever they change
-  useEffect(() => {
-    localStorage.setItem(
-      "customRecipes",
-      JSON.stringify(customRecipes)
-    );
-  }, [customRecipes]);
-
-  // Fetch API recipes and combine them with custom recipes
   useEffect(() => {
     async function fetchRecipes() {
       try {
@@ -48,14 +30,10 @@ function App() {
         setError(null);
 
         const data = await getRecipes();
-
-        setRecipes([
-          ...customRecipes,
-          ...data,
-        ]);
+        setRecipes(data);
       } catch (error) {
         setError(error.message);
-        setRecipes(customRecipes);
+        setRecipes([]);
       } finally {
         setLoading(false);
       }
@@ -64,24 +42,9 @@ function App() {
     fetchRecipes();
   }, []);
 
-  // Add a new recipe
+  // Add a new recipe to the existing recipe list
   const addRecipe = (newRecipe) => {
-    // Keep the uploaded image temporary.
-    // Only recipe details are saved in localStorage.
-    const savedRecipe = {
-      ...newRecipe,
-      image: "",
-    };
-
-    setCustomRecipes((previous) => [
-      savedRecipe,
-      ...previous,
-    ]);
-
-    setRecipes((previous) => [
-      newRecipe,
-      ...previous,
-    ]);
+    setRecipes((prevRecipes) => [newRecipe, ...prevRecipes]);
   };
 
   return (
@@ -105,9 +68,9 @@ function App() {
         />
 
         <Route
-          path="/recipe/:id"
-          element={<RecipeDetail recipes={recipes} />}
-        />
+  path="/recipe/:id"
+  element={<RecipeDetail recipes={recipes} />}
+/>
 
         <Route
           path="/favourites"
