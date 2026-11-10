@@ -1,3 +1,4 @@
+
 import { createContext, useContext } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -7,15 +8,19 @@ export function FavouritesProvider({ children }) {
   const [favourites, setFavourites] = useLocalStorage("favourites", []);
 
   function toggleFavourite(id) {
+    const recipeId = String(id);
+
     setFavourites((previous) =>
-      previous.includes(id)
-        ? previous.filter((item) => item !== id)
-        : [...previous, id]
+      previous.some((item) => String(item) === recipeId)
+        ? previous.filter((item) => String(item) !== recipeId)
+        : [...previous, recipeId]
     );
   }
 
   function isFavourite(id) {
-    return favourites.includes(id);
+    return favourites.some(
+      (item) => String(item) === String(id)
+    );
   }
 
   const count = favourites.length;
