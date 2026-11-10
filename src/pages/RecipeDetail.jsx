@@ -1,10 +1,12 @@
+
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import RecipeDetails from "../components/RecipeDetails";
-import "./RecipeDetail.css";
+import { useTheme } from "../context/ThemeContext";
 
-function RecipeDetail() {
+function RecipeDetail({ recipes }) {
   const { id } = useParams();
+  const { theme } = useTheme();
 
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -16,6 +18,17 @@ function RecipeDetail() {
         setLoading(true);
         setError(null);
 
+        // First, check whether the recipe exists in local state
+        const localRecipe = recipes.find(
+          (item) => String(item.id) === id
+        );
+
+        if (localRecipe) {
+          setRecipe(localRecipe);
+          return;
+        }
+
+        // If not found locally, fetch from DummyJSON
         const response = await fetch(
           `https://dummyjson.com/recipes/${id}`
         );
@@ -34,11 +47,25 @@ function RecipeDetail() {
     }
 
     fetchRecipe();
-  }, [id]);
+  }, [id, recipes]);
 
-  if (loading) return <p>Loading recipe...</p>;
-  if (error) return <p>{error}</p>;
-  if (!recipe) return <p>Recipe not found.</p>;
+  const messageStyles = `flex min-h-[60vh] items-center justify-center px-5 text-center text-base ${
+    theme === "dark"
+      ? "bg-[#202923] text-white"
+      : "bg-white text-[#555]"
+  }`;
+
+  if (loading) {
+    return <p className={messageStyles}>Loading recipe...</p>;
+  }
+
+  if (error) {
+    return <p className={messageStyles}>{error}</p>;
+  }
+
+  if (!recipe) {
+    return <p className={messageStyles}>Recipe not found.</p>;
+  }
 
   return <RecipeDetails recipe={recipe} />;
 }

@@ -1,12 +1,15 @@
+
 import RecipeCard from "./RecipeCard";
-import "./RecipeList.css";
+
 function RecipeList({ recipes }) {
   return (
     <>
       {recipes.length === 0 ? (
-        <p className="no-recipes">No favourite recipes found.</p>
+        <p className="col-span-full px-5 py-10 text-center text-base text-[#777] max-[600px]:text-[10px]">
+          No favourite recipes found.
+        </p>
       ) : (
-        <div className="recipe-grid">
+        <div className="grid grid-cols-1 gap-[14px] min-[601px]:grid-cols-2 min-[901px]:grid-cols-3 min-[601px]:gap-5">
           {recipes.map((recipe) => (
             <RecipeCard
               key={recipe.id}

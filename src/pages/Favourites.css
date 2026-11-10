@@ -1,7 +1,0 @@
-/* Favourites page styles.
-   .container and .section-title are shared with Home —
-   they live in Home.css which Vite bundles once regardless
-   of how many components import it.                         */
-
-/* Re-import shared layout so this page is self-contained */
-@import "./Home.css";
