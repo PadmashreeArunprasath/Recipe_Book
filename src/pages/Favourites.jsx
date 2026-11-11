@@ -1,16 +1,12 @@
 
+import { useSelector } from "react-redux";
 import RecipeList from "../components/RecipeList";
-import { useFavourites } from "../context/FavouritesContext";
+import { selectFavouriteRecipes } from "../features/favourites/favouritesSlice";
 import { useTheme } from "../context/ThemeContext";
 
-function Favourites({ recipes }) {
-  const { favourites } = useFavourites();
+function Favourites() {
+  const favoriteRecipes = useSelector(selectFavouriteRecipes);
   const { theme } = useTheme();
-
- const favoriteRecipes = recipes.filter((recipe) =>
-  favourites.some((id) => String(id) === String(recipe.id))
-);
-  
 
   return (
     <main className="w-full px-[30px] max-[600px]:px-[15px]">

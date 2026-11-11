@@ -3,17 +3,19 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 import App from './App.jsx'
-import { FavouritesProvider } from "./context/FavouritesContext";
 import { ThemeProvider } from "./context/ThemeContext";
+import { Provider } from "react-redux";
+import { store } from "./store/store";
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <BrowserRouter>
-      <FavouritesProvider>
+    <Provider store={store}>
+      <BrowserRouter>
         <ThemeProvider>
           <App />
         </ThemeProvider>
-      </FavouritesProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </StrictMode>,
 )
+

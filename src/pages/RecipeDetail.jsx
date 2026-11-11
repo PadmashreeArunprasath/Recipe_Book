@@ -1,53 +1,25 @@
 
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import RecipeDetails from "../components/RecipeDetails";
 import { useTheme } from "../context/ThemeContext";
 
-function RecipeDetail({ recipes }) {
+import {
+  selectAllRecipes,
+  selectRecipesStatus,
+} from "../features/recipes/recipesSlice";
+
+function RecipeDetail() {
   const { id } = useParams();
   const { theme } = useTheme();
 
-  const [recipe, setRecipe] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const recipes = useSelector(selectAllRecipes);
+  const status = useSelector(selectRecipesStatus);
 
-  useEffect(() => {
-    async function fetchRecipe() {
-      try {
-        setLoading(true);
-        setError(null);
-
-        // First, check whether the recipe exists in local state
-        const localRecipe = recipes.find(
-          (item) => String(item.id) === id
-        );
-
-        if (localRecipe) {
-          setRecipe(localRecipe);
-          return;
-        }
-
-        // If not found locally, fetch from DummyJSON
-        const response = await fetch(
-          `https://dummyjson.com/recipes/${id}`
-        );
-
-        if (!response.ok) {
-          throw new Error("Recipe not found");
-        }
-
-        const data = await response.json();
-        setRecipe(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchRecipe();
-  }, [id, recipes]);
+  const recipe = recipes.find(
+    (item) => String(item.id) === id
+  );
 
   const messageStyles = `flex min-h-[60vh] items-center justify-center px-5 text-center text-base ${
     theme === "dark"
@@ -55,12 +27,16 @@ function RecipeDetail({ recipes }) {
       : "bg-white text-[#555]"
   }`;
 
-  if (loading) {
+  if (status === "idle" || status === "loading") {
     return <p className={messageStyles}>Loading recipe...</p>;
   }
 
-  if (error) {
-    return <p className={messageStyles}>{error}</p>;
+  if (status === "failed") {
+    return (
+      <p className={messageStyles}>
+        Unable to load recipe. Please try again.
+      </p>
+    );
   }
 
   if (!recipe) {
