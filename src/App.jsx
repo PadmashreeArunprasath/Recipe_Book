@@ -1,5 +1,6 @@
 
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 
@@ -10,42 +11,43 @@ import Favourites from "./pages/Favourites";
 import NotFound from "./pages/NotFound";
 import AddRecipe from "./pages/AddRecipe";
 
-import { getRecipes } from "./api";
+import {
+  fetchRecipes,
+  addRecipe as addRecipeAction,
+  selectAllRecipes,
+  selectRecipesStatus,
+  selectRecipesError,
+} from "./features/recipes/recipesSlice";
+
 import "./App.css";
 
 function App() {
+  const dispatch = useDispatch();
+
+  // Redux state
+  const recipes = useSelector(selectAllRecipes);
+  const status = useSelector(selectRecipesStatus);
+  const error = useSelector(selectRecipesError);
+
+  // Local UI state
   const [category, setCategory] = useState("All");
   const [mealType, setMealType] = useState("All");
 
-  const [recipes, setRecipes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
   const { theme } = useTheme();
 
+  // Fetch recipes through Redux
   useEffect(() => {
-    async function fetchRecipes() {
-      try {
-        setLoading(true);
-        setError(null);
-
-        const data = await getRecipes();
-        setRecipes(data);
-      } catch (error) {
-        setError(error.message);
-        setRecipes([]);
-      } finally {
-        setLoading(false);
-      }
+    if (status === "idle") {
+      dispatch(fetchRecipes());
     }
+  }, [dispatch, status]);
 
-    fetchRecipes();
-  }, []);
-
-  // Add a new recipe to the existing recipe list
+  // Add a new recipe through Redux
   const addRecipe = (newRecipe) => {
-    setRecipes((prevRecipes) => [newRecipe, ...prevRecipes]);
+    dispatch(addRecipeAction(newRecipe));
   };
+
+  const loading = status === "idle" || status === "loading";
 
   return (
     <div className={`app ${theme}`}>
@@ -60,21 +62,18 @@ function App() {
               setCategory={setCategory}
               mealType={mealType}
               setMealType={setMealType}
-              recipes={recipes}
-              loading={loading}
-              error={error}
             />
           }
         />
 
         <Route
-  path="/recipe/:id"
-  element={<RecipeDetail recipes={recipes} />}
-/>
+          path="/recipe/:id"
+          element={<RecipeDetail />}
+        />
 
         <Route
           path="/favourites"
-          element={<Favourites recipes={recipes} />}
+          element={<Favourites />}
         />
 
         <Route

@@ -1,12 +1,14 @@
 
 import { NavLink } from "react-router-dom";
 import { Sun, Moon } from "lucide-react";
-import { useFavourites } from "../context/FavouritesContext";
+import { useSelector } from "react-redux";
+
+import { selectFavouritesCount } from "../features/favourites/favouritesSlice";
 import { useTheme } from "../context/ThemeContext";
 import "../App.css";
 
 function Header() {
-  const { count } = useFavourites();
+  const count = useSelector(selectFavouritesCount);
   const { theme, toggleTheme } = useTheme();
 
   const navLinkStyles = ({ isActive }) =>
@@ -30,7 +32,6 @@ function Header() {
 
       {/* Navigation */}
       <nav className="flex items-center gap-2 sm:gap-5 max-[360px]:w-full max-[360px]:justify-between">
-
         <NavLink to="/" end className={navLinkStyles}>
           Home
         </NavLink>

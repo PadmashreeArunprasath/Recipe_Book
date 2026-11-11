@@ -1,17 +1,22 @@
 
 import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useFavourites } from "../context/FavouritesContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import { toggleFavourite, selectIsFavourite } from "../features/favourites/favouritesSlice";
 import { useTheme } from "../context/ThemeContext";
 import isVeg from "../utils/isVeg";
 
 function RecipeCard({ recipe }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const { isFavourite, toggleFavourite } = useFavourites();
+  const favorite = useSelector((state) =>
+    selectIsFavourite(state, recipe.id)
+  );
+
   const { theme } = useTheme();
 
-  const favorite = isFavourite(recipe.id);
   const vegetarian = isVeg(recipe);
   const totalTime = recipe.prepTimeMinutes + recipe.cookTimeMinutes;
   const isDark = theme === "dark";
@@ -45,7 +50,7 @@ function RecipeCard({ recipe }) {
           className="absolute right-3 top-3 flex h-[35px] w-[35px] items-center justify-center rounded-full bg-transparent"
           onClick={(event) => {
             event.stopPropagation();
-            toggleFavourite(recipe.id);
+            dispatch(toggleFavourite(recipe.id));
           }}
         >
           <Heart
@@ -80,7 +85,6 @@ function RecipeCard({ recipe }) {
           </span>
 
           <span>◷ {totalTime} min</span>
-
           <span>{recipe.difficulty}</span>
         </div>
       </div>

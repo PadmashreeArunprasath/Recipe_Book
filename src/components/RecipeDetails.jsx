@@ -1,15 +1,25 @@
+
 import { Heart } from "lucide-react";
-import { useFavourites } from "../context/FavouritesContext";
+import { useDispatch, useSelector } from "react-redux";
+
+import {
+  toggleFavourite,
+  selectIsFavourite,
+} from "../features/favourites/favouritesSlice";
+
 import { useTheme } from "../context/ThemeContext";
 
 function RecipeDetails({ recipe }) {
+  const dispatch = useDispatch();
+
+  const favorite = useSelector((state) =>
+    selectIsFavourite(state, recipe.id)
+  );
+
   const totalTime =
     recipe.prepTimeMinutes + recipe.cookTimeMinutes;
 
-  const { isFavourite, toggleFavourite } = useFavourites();
   const { theme } = useTheme();
-
-  const favorite = isFavourite(recipe.id);
   const isDark = theme === "dark";
 
   return (
@@ -44,7 +54,7 @@ function RecipeDetails({ recipe }) {
           <button
             type="button"
             className="flex shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent"
-            onClick={() => toggleFavourite(recipe.id)}
+            onClick={() => dispatch(toggleFavourite(recipe.id))}
             aria-label={
               favorite ? "Remove from favourites" : "Add to favourites"
             }
