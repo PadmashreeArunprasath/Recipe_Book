@@ -8,6 +8,7 @@ export const store = configureStore({
     recipes: recipesReducer,
     favourites: favouritesReducer,
   },
+  devTools: true,
 });
 
 // Persist favourites whenever the Redux store changes
@@ -34,5 +35,6 @@ store.subscribe(() => {
     JSON.stringify(customRecipes)
   );
 });
+
 
 
