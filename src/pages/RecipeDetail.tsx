@@ -1,9 +1,9 @@
 
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import RecipeDetails from "../components/RecipeDetails";
 import { useTheme } from "../context/ThemeContext";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 import {
   selectAllRecipes,
@@ -11,11 +11,11 @@ import {
 } from "../features/recipes/recipesSlice";
 
 function RecipeDetail() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { theme } = useTheme();
 
-  const recipes = useSelector(selectAllRecipes);
-  const status = useSelector(selectRecipesStatus);
+  const recipes = useAppSelector(selectAllRecipes);
+  const status = useAppSelector(selectRecipesStatus);
 
   const recipe = recipes.find(
     (item) => String(item.id) === id

@@ -1,11 +1,11 @@
 
-import { useSelector } from "react-redux";
 import RecipeList from "../components/RecipeList";
 import { selectFavouriteRecipes } from "../features/favourites/favouritesSlice";
+import { useAppSelector } from "../hooks/reduxHooks";
 import { useTheme } from "../context/ThemeContext";
 
 function Favourites() {
-  const favoriteRecipes = useSelector(selectFavouriteRecipes);
+  const favoriteRecipes = useAppSelector(selectFavouriteRecipes);
   const { theme } = useTheme();
 
   return (

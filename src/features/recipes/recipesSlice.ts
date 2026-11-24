@@ -1,18 +1,14 @@
+
+import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import isVeg from "../../utils/isVeg";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getRecipes } from "../../api";
+import type { Recipe } from "../../types/recipe";
+import type { RootState } from "../../store/store";
 
-// Restore custom recipes after refresh
-const loadCustomRecipes = () => {
-  try {
-    const saved = JSON.parse(localStorage.getItem("customRecipes"));
-    return Array.isArray(saved) ? saved : [];
-  } catch {
-    return [];
-  }
-};
 
-export const fetchRecipes = createAsyncThunk(
+
+// Async thunk for fetching recipes
+export const fetchRecipes = createAsyncThunk<Recipe[]>(
   "recipes/fetchRecipes",
   async () => {
     const data = await getRecipes();
@@ -20,8 +16,15 @@ export const fetchRecipes = createAsyncThunk(
   }
 );
 
-const initialState = {
-  items: loadCustomRecipes(),
+// Define Redux state
+interface RecipesState {
+  items: Recipe[];
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null;
+}
+
+const initialState: RecipesState = {
+  items: [],
   status: "idle",
   error: null,
 };
@@ -31,7 +34,7 @@ const recipesSlice = createSlice({
   initialState,
 
   reducers: {
-    addRecipe: (state, action) => {
+    addRecipe: (state, action: PayloadAction<Recipe>) => {
       state.items.unshift(action.payload);
     },
   },
@@ -53,26 +56,33 @@ const recipesSlice = createSlice({
       })
       .addCase(fetchRecipes.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.error.message;
+        state.error = action.error.message ?? "Failed to fetch recipes";
       });
   },
 });
 
 export const { addRecipe } = recipesSlice.actions;
 
-export const selectAllRecipes = (state) => state.recipes.items;
-export const selectRecipesStatus = (state) => state.recipes.status;
-export const selectRecipesError = (state) => state.recipes.error;
+// Selectors
+export const selectAllRecipes = (state: RootState) =>
+  state.recipes.items;
 
-export const selectVegRecipes = (state) =>
+export const selectRecipesStatus = (state: RootState) =>
+  state.recipes.status;
+
+export const selectRecipesError = (state: RootState) =>
+  state.recipes.error;
+
+export const selectVegRecipes = (state: RootState) =>
   state.recipes.items.filter(isVeg);
 
-export const selectNonVegRecipes = (state) =>
+export const selectNonVegRecipes = (state: RootState) =>
   state.recipes.items.filter((recipe) => !isVeg(recipe));
 
-export default recipesSlice.reducer;
-
-export const selectRecipesByMealType = (state, mealType) => {
+export const selectRecipesByMealType = (
+  state: RootState,
+  mealType: string
+): Recipe[] => {
   if (mealType === "All") {
     return state.recipes.items;
   }
@@ -83,3 +93,5 @@ export const selectRecipesByMealType = (state, mealType) => {
     )
   );
 };
+
+export default recipesSlice.reducer;

@@ -11,30 +11,16 @@ export const store = configureStore({
   devTools: true,
 });
 
-// Persist favourites whenever the Redux store changes
+// Infer RootState and AppDispatch from the store
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
 
 store.subscribe(() => {
   const state = store.getState();
 
-  // Save favourites
   localStorage.setItem(
     "favourites",
     JSON.stringify(state.favourites.ids)
   );
-
-  // Save custom recipes without temporary image URLs
-  const customRecipes = state.recipes.items
-    .filter((recipe) => recipe.isCustom)
-    .map((recipe) => ({
-      ...recipe,
-      image: "",
-    }));
-
-  localStorage.setItem(
-    "customRecipes",
-    JSON.stringify(customRecipes)
-  );
 });
-
-
-

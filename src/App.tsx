@@ -1,6 +1,5 @@
 
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { useTheme } from "./context/ThemeContext";
 
@@ -14,40 +13,41 @@ import AddRecipe from "./pages/AddRecipe";
 import {
   fetchRecipes,
   addRecipe as addRecipeAction,
-  selectAllRecipes,
   selectRecipesStatus,
-  selectRecipesError,
 } from "./features/recipes/recipesSlice";
+
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "./hooks/reduxHooks";
+
+import type { Recipe } from "./types/recipe";
 
 import "./App.css";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // Redux state
-  const recipes = useSelector(selectAllRecipes);
-  const status = useSelector(selectRecipesStatus);
-  const error = useSelector(selectRecipesError);
+  const status = useAppSelector(selectRecipesStatus);
 
   // Local UI state
-  const [category, setCategory] = useState("All");
-  const [mealType, setMealType] = useState("All");
+  const [category, setCategory] = useState<string>("All");
+  const [mealType, setMealType] = useState<string>("All");
 
   const { theme } = useTheme();
 
   // Fetch recipes through Redux
   useEffect(() => {
     if (status === "idle") {
-      dispatch(fetchRecipes());
+      void dispatch(fetchRecipes());
     }
   }, [dispatch, status]);
 
   // Add a new recipe through Redux
-  const addRecipe = (newRecipe) => {
+  const addRecipe = (newRecipe: Recipe): void => {
     dispatch(addRecipeAction(newRecipe));
   };
-
-  const loading = status === "idle" || status === "loading";
 
   return (
     <div className={`app ${theme}`}>

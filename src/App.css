@@ -1,22 +1,73 @@
+
 /* Global Styles */
 
 body {
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: black;
   background: #ffffff;
 }
+
 body:has(.app.dark) {
-  background-color: #171c19;
+  background-color: #14251D;
 }
+
 button {
   font-family: inherit;
   cursor: pointer;
 }
 
-/* Dark Mode - Global Application */
+/* Dark Mode - Emerald Sage */
 
 .app.dark {
   min-height: 100vh;
-  background-color: #171c19;
-  color: #f5f5f5;
+  background-color: #14251D;
+  color: #E8F0E9;
+}
+
+/* Navbar */
+
+.app.dark header {
+  background-color: #20563B;
+  color: #E8F0E9;
+}
+
+/* Main content */
+
+.app.dark main {
+  background-color: #14251D;
+  color: #E8F0E9;
+}
+
+/* Headings and descriptions */
+
+.app.dark h1,
+.app.dark h2,
+.app.dark h3 {
+  color: #E8F0E9;
+}
+
+.app.dark p {
+  color: #C4D2C7;
+}
+
+/* Active accent */
+
+.app.dark .active {
+  background-color: #E4AD18;
+  color: #14251D;
+}
+
+/* Form fields */
+
+.app.dark input,
+.app.dark textarea,
+.app.dark select {
+  background-color: #20372B;
+  color: #E8F0E9;
+  border-color: #385744;
+}
+
+.app.dark input::placeholder,
+.app.dark textarea::placeholder {
+  color: #A8BBAE;
 }

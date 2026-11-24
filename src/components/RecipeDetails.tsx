@@ -1,23 +1,27 @@
 
 import { Heart } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
 
 import {
   toggleFavourite,
   selectIsFavourite,
 } from "../features/favourites/favouritesSlice";
 
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { useTheme } from "../context/ThemeContext";
+import type { Recipe } from "../types/recipe";
 
-function RecipeDetails({ recipe }) {
-  const dispatch = useDispatch();
+interface RecipeDetailsProps {
+  recipe: Recipe;
+}
 
-  const favorite = useSelector((state) =>
+function RecipeDetails({ recipe }: RecipeDetailsProps) {
+  const dispatch = useAppDispatch();
+
+  const favorite = useAppSelector((state) =>
     selectIsFavourite(state, recipe.id)
   );
 
-  const totalTime =
-    recipe.prepTimeMinutes + recipe.cookTimeMinutes;
+  const totalTime = recipe.prepTimeMinutes + recipe.cookTimeMinutes;
 
   const { theme } = useTheme();
   const isDark = theme === "dark";
@@ -25,7 +29,7 @@ function RecipeDetails({ recipe }) {
   return (
     <section
       className={`flex flex-col ${
-        isDark ? "bg-[#202923] text-[#f5f5f5]" : "bg-white text-[#505b52]"
+        isDark ? "bg-[#14251D] text-[#F0F3EF]" : "bg-white text-[#505b52]"
       }`}
     >
       {/* Recipe Image */}
@@ -38,14 +42,14 @@ function RecipeDetails({ recipe }) {
       {/* Detail Content */}
       <div
         className={`relative z-10 -mt-3 rounded-t-[22px] px-[35px] pt-7 pb-[35px] max-[768px]:px-[25px] max-[600px]:px-5 max-[600px]:pt-5 max-[360px]:px-[15px] ${
-          isDark ? "bg-[#202923]" : "bg-white"
+          isDark ? "bg-[#101A15]" : "bg-white"
         }`}
       >
         {/* Title and Favourite */}
         <div className="flex items-center justify-between gap-[15px]">
           <h2
             className={`mb-[18px] text-left font-[Georgia,serif] text-[30px] font-bold max-[768px]:text-[26px] max-[600px]:text-[23px] max-[480px]:text-xl ${
-              isDark ? "text-white" : "text-[#244b36]"
+              isDark ? "text-[#F0F3EF]" : "text-[#244b36]"
             }`}
           >
             {recipe.name}
@@ -63,7 +67,7 @@ function RecipeDetails({ recipe }) {
             <Heart
               size={24}
               fill={favorite ? "#F44336" : "none"}
-              color={favorite ? "#F44336" : "#999"}
+              color={favorite ? "#F44336" : isDark ? "#A9B9AD" : "#999"}
             />
           </button>
         </div>
@@ -80,7 +84,7 @@ function RecipeDetails({ recipe }) {
               key={item}
               className={`rounded-full px-[15px] py-[9px] text-xs font-semibold max-[600px]:px-[11px] max-[600px]:py-[7px] max-[600px]:text-[11px] max-[360px]:px-[9px] max-[360px]:py-[6px] max-[360px]:text-[10px] ${
                 isDark
-                  ? "bg-[#35463a] text-white"
+                  ? "bg-[#20372B] text-[#C5D5C9]"
                   : "bg-[#eaf1e6] text-[#315c40]"
               }`}
             >
@@ -94,8 +98,10 @@ function RecipeDetails({ recipe }) {
           {/* Ingredients */}
           <div>
             <h4
-              className={`mb-4 border-b-2 border-[#dce8d6] pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${
-                isDark ? "border-[#68796d] text-white" : "text-[#244b36]"
+              className={`mb-4 border-b-2 pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${
+                isDark
+                  ? "border-[#304B39] text-[#E8F0E9]"
+                  : "border-[#dce8d6] text-[#244b36]"
               }`}
             >
               Ingredients
@@ -106,7 +112,7 @@ function RecipeDetails({ recipe }) {
                 <li
                   key={index}
                   className={`mb-[10px] text-left text-sm leading-[1.8] max-[600px]:text-[13px] max-[360px]:text-xs max-[360px]:leading-[1.6] ${
-                    isDark ? "text-[#e0e6e1]" : "text-[#505b52]"
+                    isDark ? "text-[#B3C4B6]" : "text-[#505b52]"
                   }`}
                 >
                   {item}
@@ -118,8 +124,10 @@ function RecipeDetails({ recipe }) {
           {/* Preparation Steps */}
           <div>
             <h4
-              className={`mb-4 border-b-2 border-[#dce8d6] pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${
-                isDark ? "border-[#68796d] text-white" : "text-[#244b36]"
+              className={`mb-4 border-b-2 pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${
+                isDark
+                  ? "border-[#304B39] text-[#E8F0E9]"
+                  : "border-[#dce8d6] text-[#244b36]"
               }`}
             >
               Preparation Steps
@@ -130,7 +138,7 @@ function RecipeDetails({ recipe }) {
                 <li
                   key={index}
                   className={`mb-[10px] text-left text-sm leading-[1.8] max-[600px]:text-[13px] max-[360px]:text-xs max-[360px]:leading-[1.6] ${
-                    isDark ? "text-[#e0e6e1]" : "text-[#505b52]"
+                    isDark ? "text-[#B3C4B6]" : "text-[#505b52]"
                   }`}
                 >
                   {step}
