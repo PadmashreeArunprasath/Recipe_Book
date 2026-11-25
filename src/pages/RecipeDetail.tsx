@@ -21,11 +21,10 @@ function RecipeDetail() {
     (item) => String(item.id) === id
   );
 
-  const messageStyles = `flex min-h-[60vh] items-center justify-center px-5 text-center text-base ${
-    theme === "dark"
+  const messageStyles = `flex min-h-[60vh] items-center justify-center px-5 text-center text-base ${theme === "dark"
       ? "bg-[#202923] text-white"
       : "bg-white text-[#555]"
-  }`;
+    }`;
 
   if (status === "idle" || status === "loading") {
     return <p className={messageStyles}>Loading recipe...</p>;

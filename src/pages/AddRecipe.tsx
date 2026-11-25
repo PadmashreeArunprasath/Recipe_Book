@@ -168,22 +168,19 @@ function AddRecipe({ onAddRecipe }: AddRecipeProps) {
     navigate("/");
   };
 
-  const inputClass = `w-full rounded-lg border px-4 py-3 outline-none text-sm focus:border-amber-500 ${
-    theme === "dark"
+  const inputClass = `w-full rounded-lg border px-4 py-3 outline-none text-sm focus:border-amber-500 ${theme === "dark"
       ? "border-gray-600 bg-[#26332b] text-white"
       : "border-gray-300 bg-white text-gray-900"
-  }`;
+    }`;
 
-  const labelClass = `mb-2 block font-medium ${
-    theme === "dark" ? "text-white" : "text-gray-800"
-  }`;
+  const labelClass = `mb-2 block font-medium ${theme === "dark" ? "text-white" : "text-gray-800"
+    }`;
 
   return (
     <main className="mx-auto my-8 w-full max-w-2xl px-4 sm:px-6">
       <h1
-        className={`mb-6 text-3xl font-bold ${
-          theme === "dark" ? "text-white" : "text-gray-900"
-        }`}
+        className={`mb-6 text-3xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"
+          }`}
       >
         Add New Recipe
       </h1>
@@ -297,11 +294,10 @@ function AddRecipe({ onAddRecipe }: AddRecipeProps) {
           <label className={labelClass}>Recipe Image</label>
 
           <label
-            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition hover:border-amber-500 ${
-              theme === "dark"
+            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition hover:border-amber-500 ${theme === "dark"
                 ? "border-gray-600 text-gray-300"
                 : "border-gray-300 text-gray-600"
-            }`}
+              }`}
           >
             <span className="mt-2 font-medium">
               Click to upload an image

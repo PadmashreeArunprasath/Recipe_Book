@@ -28,9 +28,8 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
 
   return (
     <section
-      className={`flex flex-col ${
-        isDark ? "bg-[#14251D] text-[#F0F3EF]" : "bg-white text-[#505b52]"
-      }`}
+      className={`flex flex-col ${isDark ? "bg-[#14251D] text-[#F0F3EF]" : "bg-white text-[#505b52]"
+        }`}
     >
       {/* Recipe Image */}
       <img
@@ -41,16 +40,14 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
 
       {/* Detail Content */}
       <div
-        className={`relative z-10 -mt-3 rounded-t-[22px] px-[35px] pt-7 pb-[35px] max-[768px]:px-[25px] max-[600px]:px-5 max-[600px]:pt-5 max-[360px]:px-[15px] ${
-          isDark ? "bg-[#101A15]" : "bg-white"
-        }`}
+        className={`relative z-10 -mt-3 rounded-t-[22px] px-[35px] pt-7 pb-[35px] max-[768px]:px-[25px] max-[600px]:px-5 max-[600px]:pt-5 max-[360px]:px-[15px] ${isDark ? "bg-[#101A15]" : "bg-white"
+          }`}
       >
         {/* Title and Favourite */}
         <div className="flex items-center justify-between gap-[15px]">
           <h2
-            className={`mb-[18px] text-left font-[Georgia,serif] text-[30px] font-bold max-[768px]:text-[26px] max-[600px]:text-[23px] max-[480px]:text-xl ${
-              isDark ? "text-[#F0F3EF]" : "text-[#244b36]"
-            }`}
+            className={`mb-[18px] text-left font-[Georgia,serif] text-[30px] font-bold max-[768px]:text-[26px] max-[600px]:text-[23px] max-[480px]:text-xl ${isDark ? "text-[#F0F3EF]" : "text-[#244b36]"
+              }`}
           >
             {recipe.name}
           </h2>
@@ -82,11 +79,10 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
           ].map((item) => (
             <span
               key={item}
-              className={`rounded-full px-[15px] py-[9px] text-xs font-semibold max-[600px]:px-[11px] max-[600px]:py-[7px] max-[600px]:text-[11px] max-[360px]:px-[9px] max-[360px]:py-[6px] max-[360px]:text-[10px] ${
-                isDark
+              className={`rounded-full px-[15px] py-[9px] text-xs font-semibold max-[600px]:px-[11px] max-[600px]:py-[7px] max-[600px]:text-[11px] max-[360px]:px-[9px] max-[360px]:py-[6px] max-[360px]:text-[10px] ${isDark
                   ? "bg-[#20372B] text-[#C5D5C9]"
                   : "bg-[#eaf1e6] text-[#315c40]"
-              }`}
+                }`}
             >
               {item}
             </span>
@@ -98,11 +94,10 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
           {/* Ingredients */}
           <div>
             <h4
-              className={`mb-4 border-b-2 pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${
-                isDark
+              className={`mb-4 border-b-2 pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${isDark
                   ? "border-[#304B39] text-[#E8F0E9]"
                   : "border-[#dce8d6] text-[#244b36]"
-              }`}
+                }`}
             >
               Ingredients
             </h4>
@@ -111,9 +106,8 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
               {recipe.ingredients.map((item, index) => (
                 <li
                   key={index}
-                  className={`mb-[10px] text-left text-sm leading-[1.8] max-[600px]:text-[13px] max-[360px]:text-xs max-[360px]:leading-[1.6] ${
-                    isDark ? "text-[#B3C4B6]" : "text-[#505b52]"
-                  }`}
+                  className={`mb-[10px] text-left text-sm leading-[1.8] max-[600px]:text-[13px] max-[360px]:text-xs max-[360px]:leading-[1.6] ${isDark ? "text-[#B3C4B6]" : "text-[#505b52]"
+                    }`}
                 >
                   {item}
                 </li>
@@ -124,11 +118,10 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
           {/* Preparation Steps */}
           <div>
             <h4
-              className={`mb-4 border-b-2 pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${
-                isDark
+              className={`mb-4 border-b-2 pb-[10px] text-lg font-semibold max-[600px]:text-[17px] max-[360px]:text-[15px] ${isDark
                   ? "border-[#304B39] text-[#E8F0E9]"
                   : "border-[#dce8d6] text-[#244b36]"
-              }`}
+                }`}
             >
               Preparation Steps
             </h4>
@@ -137,9 +130,8 @@ function RecipeDetails({ recipe }: RecipeDetailsProps) {
               {recipe.instructions.map((step, index) => (
                 <li
                   key={index}
-                  className={`mb-[10px] text-left text-sm leading-[1.8] max-[600px]:text-[13px] max-[360px]:text-xs max-[360px]:leading-[1.6] ${
-                    isDark ? "text-[#B3C4B6]" : "text-[#505b52]"
-                  }`}
+                  className={`mb-[10px] text-left text-sm leading-[1.8] max-[600px]:text-[13px] max-[360px]:text-xs max-[360px]:leading-[1.6] ${isDark ? "text-[#B3C4B6]" : "text-[#505b52]"
+                    }`}
                 >
                   {step}
                 </li>

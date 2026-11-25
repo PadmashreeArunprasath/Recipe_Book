@@ -13,19 +13,17 @@ function Header() {
   const isDark = theme === "dark";
 
   const navLinkStyles = ({ isActive }: NavLinkRenderProps): string =>
-    `whitespace-nowrap text-xs font-[Poppins,sans-serif] sm:text-base no-underline transition-colors duration-200 hover:text-amber-400 ${
-      isActive ? "font-bold text-amber-400" : "text-white"
+    `whitespace-nowrap text-xs font-[Poppins,sans-serif] sm:text-base no-underline transition-colors duration-200 hover:text-amber-400 ${isActive ? "font-bold text-amber-400" : "text-white"
     }`;
 
   return (
     <header
-      className={`sticky top-0 z-[1000] flex flex-col gap-3 px-4 py-3 text-white sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-[3%] sm:py-[18px] ${
-        isDark ? "bg-[#20563B]" : "bg-[#285d3c]"
-      }`}
+      className={`sticky top-0 z-[1000] flex flex-col gap-3 px-4 py-3 text-white sm:flex-row sm:items-center sm:justify-between sm:gap-2 sm:px-[3%] sm:py-[18px] ${isDark ? "bg-[#20563B]" : "bg-[#285d3c]"
+        }`}
     >
       <NavLink
         to="/"
-        className="whitespace-nowrap self-start font-[Georgia,serif] text-base font-bold text-[#E4AD18] no-underline sm:text-xl"
+        className="!bg-transparent whitespace-nowrap self-start font-[Georgia,serif] text-base font-bold !text-[#E4AD18] no-underline hover:!bg-transparent sm:text-xl"
       >
         RECIPE BOOK
       </NavLink>
