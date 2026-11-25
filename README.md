@@ -4,7 +4,7 @@ A responsive Recipe Book web application built with React and TypeScript that al
 
 ## 🔗 Live Link
 
-[Recipe Book – Live Demo](YOUR_LIVE_LINK_HERE)
+[Recipe Book – Live Demo](https://recipe-book-brown-six.vercel.app)
 
 ## 📸 Screenshots
 
