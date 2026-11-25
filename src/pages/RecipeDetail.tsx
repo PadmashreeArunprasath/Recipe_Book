@@ -1,9 +1,9 @@
 
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import RecipeDetails from "../components/RecipeDetails";
 import { useTheme } from "../context/ThemeContext";
+import { useAppSelector } from "../hooks/reduxHooks";
 
 import {
   selectAllRecipes,
@@ -11,21 +11,20 @@ import {
 } from "../features/recipes/recipesSlice";
 
 function RecipeDetail() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { theme } = useTheme();
 
-  const recipes = useSelector(selectAllRecipes);
-  const status = useSelector(selectRecipesStatus);
+  const recipes = useAppSelector(selectAllRecipes);
+  const status = useAppSelector(selectRecipesStatus);
 
   const recipe = recipes.find(
     (item) => String(item.id) === id
   );
 
-  const messageStyles = `flex min-h-[60vh] items-center justify-center px-5 text-center text-base ${
-    theme === "dark"
+  const messageStyles = `flex min-h-[60vh] items-center justify-center px-5 text-center text-base ${theme === "dark"
       ? "bg-[#202923] text-white"
       : "bg-white text-[#555]"
-  }`;
+    }`;
 
   if (status === "idle" || status === "loading") {
     return <p className={messageStyles}>Loading recipe...</p>;

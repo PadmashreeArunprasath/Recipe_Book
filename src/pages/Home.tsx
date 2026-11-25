@@ -1,5 +1,5 @@
 
-import { useSelector } from "react-redux";
+import type { Dispatch, SetStateAction } from "react";
 
 import Hero from "../components/Hero";
 import FilterButtons from "../components/FilterButton";
@@ -12,19 +12,27 @@ import {
   selectRecipesError,
 } from "../features/recipes/recipesSlice";
 
+import { useAppSelector } from "../hooks/reduxHooks";
+
+interface HomeProps {
+  category: string;
+  setCategory: Dispatch<SetStateAction<string>>;
+  mealType: string;
+  setMealType: Dispatch<SetStateAction<string>>;
+}
+
 function Home({
   category,
   setCategory,
   mealType,
   setMealType,
-}) {
+}: HomeProps) {
   // Get data directly from Redux
-  
-  const status = useSelector(selectRecipesStatus);
-  const error = useSelector(selectRecipesError);
+  const status = useAppSelector(selectRecipesStatus);
+  const error = useAppSelector(selectRecipesError);
 
   // Apply meal type selector
-  const mealFilteredRecipes = useSelector((state) =>
+  const mealFilteredRecipes = useAppSelector((state) =>
     selectRecipesByMealType(state, mealType)
   );
 

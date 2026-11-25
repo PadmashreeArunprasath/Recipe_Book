@@ -1,13 +1,33 @@
 
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import type { Recipe } from "../types/recipe";
 
-function AddRecipe({ onAddRecipe }) {
+type Difficulty = "Easy" | "Medium" | "Hard";
+type Category = "Veg" | "Non-veg";
+
+interface FormData {
+  name: string;
+  category: Category;
+  cookingTime: string;
+  difficulty: Difficulty;
+  ingredients: string;
+  steps: string;
+}
+
+type FormField = keyof FormData;
+
+interface AddRecipeProps {
+  onAddRecipe: (recipe: Recipe) => void;
+}
+
+function AddRecipe({ onAddRecipe }: AddRecipeProps) {
   const navigate = useNavigate();
   const { theme } = useTheme();
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     category: "Veg",
     cookingTime: "",
@@ -16,13 +36,11 @@ function AddRecipe({ onAddRecipe }) {
     steps: "",
   });
 
-  const [image, setImage] = useState("");
-  const [errors, setErrors] = useState({});
-  const [saving, setSaving] = useState(false);
+  const [image, setImage] = useState<string>("");
+  const [errors, setErrors] = useState<Partial<Record<FormField, string>>>({});
+  const [saving, setSaving] = useState<boolean>(false);
 
- 
-
-  const validateField = (name, value) => {
+  const validateField = (name: FormField, value: string): string => {
     const trimmedValue = value.trim();
 
     switch (name) {
@@ -31,6 +49,7 @@ function AddRecipe({ onAddRecipe }) {
 
       case "cookingTime":
         if (!trimmedValue) return "Cooking time is required.";
+
         if (
           !/^\d+$/.test(trimmedValue) ||
           Number(trimmedValue) < 1 ||
@@ -38,6 +57,7 @@ function AddRecipe({ onAddRecipe }) {
         ) {
           return "Enter a cooking time between 1 and 300 minutes.";
         }
+
         return "";
 
       case "ingredients":
@@ -55,7 +75,9 @@ function AddRecipe({ onAddRecipe }) {
     }
   };
 
-  const handleChange = (event) => {
+  const handleChange = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
 
     setFormData((prev) => ({
@@ -64,8 +86,8 @@ function AddRecipe({ onAddRecipe }) {
     }));
   };
 
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
 
     if (!file) return;
 
@@ -85,21 +107,27 @@ function AddRecipe({ onAddRecipe }) {
     setImage(imageURL);
   };
 
-  const handleBlur = (event) => {
+  const handleBlur = (
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = event.target;
 
-    setErrors((prev) => ({
-      ...prev,
-      [name]: validateField(name, value),
-    }));
+    if (name in formData) {
+      const field = name as FormField;
+
+      setErrors((prev) => ({
+        ...prev,
+        [field]: validateField(field, value),
+      }));
+    }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const newErrors = {};
+    const newErrors: Partial<Record<FormField, string>> = {};
 
-    Object.keys(formData).forEach((field) => {
+    (Object.keys(formData) as FormField[]).forEach((field) => {
       newErrors[field] = validateField(field, formData[field]);
     });
 
@@ -113,7 +141,7 @@ function AddRecipe({ onAddRecipe }) {
 
     setSaving(true);
 
-    const newRecipe = {
+    const newRecipe: Recipe = {
       id: Date.now(),
       name: formData.name.trim(),
       ingredients: formData.ingredients
@@ -140,22 +168,19 @@ function AddRecipe({ onAddRecipe }) {
     navigate("/");
   };
 
-  const inputClass = `w-full rounded-lg border px-4 py-3 outline-none text-sm focus:border-amber-500 ${
-    theme === "dark"
+  const inputClass = `w-full rounded-lg border px-4 py-3 outline-none text-sm focus:border-amber-500 ${theme === "dark"
       ? "border-gray-600 bg-[#26332b] text-white"
       : "border-gray-300 bg-white text-gray-900"
-  }`;
+    }`;
 
-  const labelClass = `mb-2 block font-medium ${
-    theme === "dark" ? "text-white" : "text-gray-800"
-  }`;
+  const labelClass = `mb-2 block font-medium ${theme === "dark" ? "text-white" : "text-gray-800"
+    }`;
 
   return (
     <main className="mx-auto my-8 w-full max-w-2xl px-4 sm:px-6">
       <h1
-        className={`mb-6 text-3xl font-bold ${
-          theme === "dark" ? "text-white" : "text-gray-900"
-        }`}
+        className={`mb-6 text-3xl font-bold ${theme === "dark" ? "text-white" : "text-gray-900"
+          }`}
       >
         Add New Recipe
       </h1>
@@ -230,7 +255,7 @@ function AddRecipe({ onAddRecipe }) {
             value={formData.ingredients}
             onChange={handleChange}
             onBlur={handleBlur}
-            rows="5"
+            rows={5}
             placeholder={"Rice\nOnion\nTomato"}
             className={inputClass}
           />
@@ -250,7 +275,7 @@ function AddRecipe({ onAddRecipe }) {
             value={formData.steps}
             onChange={handleChange}
             onBlur={handleBlur}
-            rows="6"
+            rows={6}
             placeholder={"Wash the rice\nAdd water and cook"}
             className={inputClass}
           />
@@ -269,13 +294,11 @@ function AddRecipe({ onAddRecipe }) {
           <label className={labelClass}>Recipe Image</label>
 
           <label
-            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition hover:border-amber-500 ${
-              theme === "dark"
+            className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed p-6 transition hover:border-amber-500 ${theme === "dark"
                 ? "border-gray-600 text-gray-300"
                 : "border-gray-300 text-gray-600"
-            }`}
+              }`}
           >
-            
             <span className="mt-2 font-medium">
               Click to upload an image
             </span>

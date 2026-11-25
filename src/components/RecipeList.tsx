@@ -1,7 +1,12 @@
 
 import RecipeCard from "./RecipeCard";
+import type { Recipe } from "../types/recipe";
 
-function RecipeList({ recipes }) {
+interface RecipeListProps {
+  recipes: Recipe[];
+}
+
+function RecipeList({ recipes }: RecipeListProps) {
   return (
     <>
       {recipes.length === 0 ? (

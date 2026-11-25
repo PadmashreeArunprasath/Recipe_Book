@@ -1,19 +1,18 @@
 
-import { useSelector } from "react-redux";
 import RecipeList from "../components/RecipeList";
 import { selectFavouriteRecipes } from "../features/favourites/favouritesSlice";
+import { useAppSelector } from "../hooks/reduxHooks";
 import { useTheme } from "../context/ThemeContext";
 
 function Favourites() {
-  const favoriteRecipes = useSelector(selectFavouriteRecipes);
+  const favoriteRecipes = useAppSelector(selectFavouriteRecipes);
   const { theme } = useTheme();
 
   return (
     <main className="w-full px-[30px] max-[600px]:px-[15px]">
       <h2
-        className={`p-[25px] font-[Georgia,serif] text-[25px] font-bold max-[600px]:mb-3 max-[600px]:text-lg ${
-          theme === "dark" ? "text-white" : "text-black"
-        }`}
+        className={`p-[25px] font-[Georgia,serif] text-[25px] font-bold max-[600px]:mb-3 max-[600px]:text-lg ${theme === "dark" ? "text-white" : "text-black"
+          }`}
       >
         My Favourite Recipes
       </h2>
